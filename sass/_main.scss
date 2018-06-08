@@ -1,0 +1,14 @@
+.slider_wrap {
+	position: relative;
+
+	max-width: 112em;
+	width: 100%;
+	min-width: 48em;
+	height: 65em;
+	margin: 0 auto;
+
+	background-color: $white;
+	box-shadow: 0 0 35px 20px rgba(79, 69, 66, 0.2);
+	overflow: hidden;
+}
+
