@@ -1,9 +1,15 @@
 var $mainSlider,
 		slidesArray = [],
+		animObject,
 		checkAnim = false;
 
 $(document).ready(function ($) {
 	$mainSlider = $('.mainSlider');
+	
+	animObject = {
+		easeOne: Expo.easeOut
+	};
+
 });
 
 $(window).on('load', function () {
@@ -25,6 +31,26 @@ function loadFunc() {
 	});
 	
 	sliderInit();
+
+	TweenMax.staggerFrom([$('.menu_wrap'), $('.logo_wrap'), $('.resources_list'), $('.lang_list')], .8, {
+		cycle: {
+			y: [-200, -200, 200, 200]
+		},
+		opacity: 0,
+		ease: animObject.easeOne,
+		onComplete: function() {
+			TweenMax.set([$('.menu_wrap'), $('.logo_wrap'), $('.resources_list'), $('.lang_list')], {clearProps: 'all'});
+		}
+	})
+	TweenMax.from($('.nav_arrows'), .8, {
+		opacity: 0,
+		x: 100,
+		ease: animObject.easeOne,
+		onComplete: function() {
+			TweenMax.set($('.nav_arrows'), {clearProps: 'all'});
+		}
+	})
+
 }
 
 function sliderInit() {
