@@ -163,7 +163,9 @@ body {
 .menu_wrap {
   position: absolute;
   top: var(--gl_indent);
-  left: calc(var(--gl_indent) * 2); }
+  left: calc(var(--gl_indent) * 2);
+  will-change: transform;
+  transform: translateZ(0); }
 
 .menu_w_trigger {
   display: flex;
@@ -227,7 +229,9 @@ body {
     position: absolute;
     left: 50%;
     top: var(--gl_indent);
-    margin-left: -2.4em; }
+    margin-left: -2.4em;
+    will-change: transform;
+    transform: translateZ(0); }
 
 .logo {
   color: #000;
@@ -245,7 +249,9 @@ body {
   .resources_list.position_mod {
     position: absolute;
     bottom: var(--gl_indent);
-    left: calc(var(--gl_indent) * 2); }
+    left: calc(var(--gl_indent) * 2);
+    will-change: transform;
+    transform: translateZ(0); }
 
 .resources_list_item {
   padding-right: 1.2em; }
@@ -264,7 +270,9 @@ body {
   .lang_list.position_mod {
     position: absolute;
     bottom: var(--gl_indent);
-    right: calc(var(--gl_indent) * 2); }
+    right: calc(var(--gl_indent) * 2);
+    will-change: transform;
+    transform: translateZ(0); }
 
 .lang_list_item {
   padding-right: 1.2em; }
@@ -279,7 +287,8 @@ body {
   top: 50%;
   right: calc(var(--gl_indent) * 2);
   width: 2em;
-  transform: translateY(-50%); }
+  transform: translateY(-50%);
+  will-change: transform; }
 
 .nav_arrows_line {
   display: block;
@@ -326,7 +335,7 @@ body {
   float: none !important;
   opacity: 0;
   will-change: transform;
-  /* transform: translateZ(0); */
+  transform: translateZ(0);
   background-color: #fff; }
 
 .slick-arrow {
@@ -342,8 +351,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   will-change: transform;
-  height: 100%; }
+  transform: translateZ(0); }
 
 .slider_descr {
   position: absolute;
@@ -390,6 +400,20 @@ body {
   font-weight: 600; }
   .slide_block_title.offset_mod {
     margin-bottom: 0.45455em; }
+
+.slider_block_w_number {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -6em;
+  margin-left: -5em; }
+
+.slider_block_number {
+  position: relative;
+  color: #efefef;
+  font-size: 12em;
+  font-weight: 700;
+  line-height: 1; }
 
 .slide_block_descr {
   color: #666666;

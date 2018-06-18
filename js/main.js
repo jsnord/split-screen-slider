@@ -8,7 +8,8 @@ $(document).ready(function ($) {
 	
 	animObject = {
 		'easeOne': Expo.easeOut,
-		'sliderChangeTime': 2
+		'sliderChangeTime': .8,
+		'subtitleChangeTime': .4
 	};
 
 	console.log(animObject.easeOne);
@@ -29,6 +30,7 @@ function loadFunc() {
 			'elBlockOne': $('.slider_col_in.v1_mod', $this),
 			'elBlockTwo': $('.slider_col_in.v2_mod', $this),
 			'elSubtitle': $('.slide_block_w_subtitle', $this),
+			'elNumber': $('.slider_block_w_number', $this),
 			'elImage': $('.slider_w_img', $this)
 		};
 
@@ -103,7 +105,8 @@ function slideAnim(nextSlide, currentSlide) {
 	if (currentSlide < nextSlide && !checkAnim) {
 		checkAnim = true;
 		tl
-			.addLabel('start')
+			.to(slidesArray[currentSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
+			.to(slidesArray[currentSlide].elSubtitle, animObject.subtitleChangeTime, {opacity: 0})
 			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
 					yPercent: [-100, 100]
@@ -111,7 +114,7 @@ function slideAnim(nextSlide, currentSlide) {
 				ease: animObject.easeOne
 			})
 			.set(slidesArray[currentSlide].el, {opacity: 0})
-			.set(slidesArray[nextSlide].el, {opacity: 1}, '-=.6')
+			.set(slidesArray[nextSlide].el, {opacity: 1})
 			.staggerFromTo([slidesArray[nextSlide].elBlockOne, slidesArray[nextSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
 					yPercent: [100, -100]
@@ -119,15 +122,20 @@ function slideAnim(nextSlide, currentSlide) {
 			}, {
 				yPercent: 0,
 				ease: animObject.easeOne,
+			})
+			.from(slidesArray[nextSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
+			.from(slidesArray[nextSlide].elSubtitle, animObject.subtitleChangeTime, {
+				opacity: 0,
 				onComplete: function() {
 					checkAnim = false;
 				}
 			})
 	} else if (!checkAnim) {
 		checkAnim = true;
-		checkAnim = true;
 		tl
-			.addLabel('start')
+			// .addLabel('start')
+			.to(slidesArray[currentSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
+			.to(slidesArray[currentSlide].elSubtitle, animObject.subtitleChangeTime, {opacity: 0})
 			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
 					yPercent: [100, -100]
@@ -142,7 +150,15 @@ function slideAnim(nextSlide, currentSlide) {
 				}
 			}, {
 				yPercent: 0,
-				ease: animObject.easeOne,
+				ease: animObject.easeOne
+			})
+			.fromTo(slidesArray[nextSlide].elNumber, animObject.subtitleChangeTime, {
+				xPercent: -100
+			}, {
+				xPercent: 0
+			})
+			.to(slidesArray[nextSlide].elSubtitle, animObject.subtitleChangeTime, {
+				opacity: 1,
 				onComplete: function() {
 					checkAnim = false;
 				}

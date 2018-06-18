@@ -129,6 +129,24 @@
 
 }
 
+.slider_block_w_number {
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  margin-top: -6em;
+  margin-left: -5em;
+}
+
+.slider_block_number {
+  position: relative;
+
+  color: #efefef;
+  font-size: 12em;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .slide_block_descr {
   color: $gray;
   font-size: 1.2em;
