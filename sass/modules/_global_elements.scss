@@ -5,6 +5,8 @@
 	position: absolute;
 	top: var(--gl_indent);
 	left: calc(var(--gl_indent) * 2);
+
+	@include d3;
 }
 
 .menu_w_trigger {
@@ -35,7 +37,6 @@
 	margin-top: -.2rem;
 	background: $black;
 }
-
 
 .menu_trigger {
 	position: relative;
@@ -102,6 +103,8 @@
 		top: var(--gl_indent);
 
 		margin-left: -2.4em;
+
+		@include d3;
 	}
 
 }
@@ -131,6 +134,8 @@
 		position: absolute;
 		bottom: var(--gl_indent);
 		left: calc(var(--gl_indent) * 2);
+
+		@include d3;
 	}
 
 }
@@ -161,6 +166,8 @@
 		position: absolute;
 		bottom: var(--gl_indent);
 		right: calc(var(--gl_indent) * 2);
+
+		@include d3;
 	}
 
 }
@@ -189,6 +196,7 @@
 	width: 2em;
 	
 	transform: translateY(-50%);
+	will-change: transform;
 }
 
 .nav_arrows_line {

@@ -1,0 +1,4 @@
+@mixin d3 {
+  will-change: transform;
+  transform: translateZ(0);
+}

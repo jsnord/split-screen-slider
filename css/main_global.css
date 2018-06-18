@@ -324,10 +324,10 @@ body {
   height: 100%;
   padding: 0;
   float: none !important;
+  opacity: 0;
   will-change: transform;
-  transform: translateZ(0); }
-  .slider_item.slick-active {
-    z-index: 2; }
+  /* transform: translateZ(0); */
+  background-color: #fff; }
 
 .slick-arrow {
   display: none !important; }
@@ -336,6 +336,14 @@ body {
   position: relative;
   height: 100%;
   width: 50%; }
+
+.slider_col_in {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
+  height: 100%; }
 
 .slider_descr {
   position: absolute;

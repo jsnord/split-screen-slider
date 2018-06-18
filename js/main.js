@@ -7,8 +7,11 @@ $(document).ready(function ($) {
 	$mainSlider = $('.mainSlider');
 	
 	animObject = {
-		easeOne: Expo.easeOut
+		'easeOne': Expo.easeOut,
+		'sliderChangeTime': 2
 	};
+
+	console.log(animObject.easeOne);
 
 });
 
@@ -23,14 +26,14 @@ function loadFunc() {
 		var sub_object = {
 			'el': $this,
 			'elDescr': $('.slider_descr', $this),
+			'elBlockOne': $('.slider_col_in.v1_mod', $this),
+			'elBlockTwo': $('.slider_col_in.v2_mod', $this),
 			'elSubtitle': $('.slide_block_w_subtitle', $this),
 			'elImage': $('.slider_w_img', $this)
 		};
 
 		slidesArray.push(sub_object);
 	});
-	
-	sliderInit();
 
 	TweenMax.staggerFrom([$('.menu_wrap'), $('.logo_wrap'), $('.resources_list'), $('.lang_list')], .8, {
 		cycle: {
@@ -50,6 +53,9 @@ function loadFunc() {
 			TweenMax.set($('.nav_arrows'), {clearProps: 'all'});
 		}
 	})
+	TweenMax.set(slidesArray[0].el, {opacity: 1})
+
+	sliderInit();
 
 }
 
@@ -72,7 +78,7 @@ function sliderInit() {
 			$mainSlider.slick("slickPrev");
 		}
 	});
-
+	
 	$('.nav_arrows_control.next_mod').click(function () {
 		if(!checkAnim) {
 			$mainSlider.slick("slickNext");
@@ -91,12 +97,56 @@ function sliderInit() {
 
 }
 
-function slideAnim(nextSlide, currentSlide, $delay) {
+function slideAnim(nextSlide, currentSlide) {
+	var tl = new TimelineMax();
 	
-	if (!currentSlide && !checkAnim) {
+	if (currentSlide < nextSlide && !checkAnim) {
 		checkAnim = true;
+		tl
+			.addLabel('start')
+			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
+				cycle: {
+					yPercent: [-100, 100]
+				},
+				ease: animObject.easeOne
+			})
+			.set(slidesArray[currentSlide].el, {opacity: 0})
+			.set(slidesArray[nextSlide].el, {opacity: 1}, '-=.6')
+			.staggerFromTo([slidesArray[nextSlide].elBlockOne, slidesArray[nextSlide].elBlockTwo], animObject.sliderChangeTime, {
+				cycle: {
+					yPercent: [100, -100]
+				}
+			}, {
+				yPercent: 0,
+				ease: animObject.easeOne,
+				onComplete: function() {
+					checkAnim = false;
+				}
+			})
 	} else if (!checkAnim) {
 		checkAnim = true;
+		checkAnim = true;
+		tl
+			.addLabel('start')
+			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
+				cycle: {
+					yPercent: [100, -100]
+				},
+				ease: animObject.easeOne
+			})
+			.set(slidesArray[currentSlide].el, {opacity: 0})
+			.set(slidesArray[nextSlide].el, {opacity: 1}, '-=.6')
+			.staggerFromTo([slidesArray[nextSlide].elBlockOne, slidesArray[nextSlide].elBlockTwo], animObject.sliderChangeTime, {
+				cycle: {
+					yPercent: [-100, 100]
+				}
+			}, {
+				yPercent: 0,
+				ease: animObject.easeOne,
+				onComplete: function() {
+					checkAnim = false;
+				}
+			})
 	}
 
 }
