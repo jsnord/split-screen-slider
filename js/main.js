@@ -12,8 +12,6 @@ $(document).ready(function ($) {
 		'subtitleChangeTime': .4
 	};
 
-	console.log(animObject.easeOne);
-
 });
 
 $(window).on('load', function () {
@@ -55,10 +53,11 @@ function loadFunc() {
 			TweenMax.set($('.nav_arrows'), {clearProps: 'all'});
 		}
 	})
-	TweenMax.set(slidesArray[0].el, {opacity: 1})
+
+	TweenMax.set(slidesArray[0].el, {className: '+=active'});
+	TweenMax.set([slidesArray[0].elBlockOne, slidesArray[0].elBlockTwo], {yPercent: -100});
 
 	sliderInit();
-
 }
 
 function sliderInit() {
@@ -100,69 +99,91 @@ function sliderInit() {
 }
 
 function slideAnim(nextSlide, currentSlide) {
-	var tl = new TimelineMax();
+	var tl = new TimelineMax(),
+			subTl = new TimelineMax(),
+			subTlSecond = new TimelineMax();
+
+	subTl
+		.addLabel('start')
+		.fromTo(slidesArray[currentSlide].elNumber, animObject.subtitleChangeTime, {
+			xPercent: 0
+		}, {
+			xPercent: -80
+		})
+		.fromTo(slidesArray[currentSlide].elSubtitle, animObject.subtitleChangeTime, {
+			opacity: 1
+		}, {
+			opacity: 0
+		}, 'start+=.2')
+
+	subTlSecond
+		.addLabel('start')
+		.fromTo(slidesArray[nextSlide].elNumber, animObject.subtitleChangeTime, {
+			xPercent: -80
+		}, {
+			xPercent: 0
+		})
+		.fromTo(slidesArray[nextSlide].elSubtitle, animObject.subtitleChangeTime, {
+			opacity: 0
+		}, {
+			opacity: 1,
+			onComplete: function() {
+				checkAnim = false;
+			}
+		}, 'start+=.2')
 	
 	if (currentSlide < nextSlide && !checkAnim) {
 		checkAnim = true;
 		tl
-			.to(slidesArray[currentSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
-			.to(slidesArray[currentSlide].elSubtitle, animObject.subtitleChangeTime, {opacity: 0})
-			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
+			.add(subTl)
+			.addLabel('start')
+			.staggerFromTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
-					yPercent: [-100, 100]
+					yPercent: [-100, -100]
+				}
+			}, {
+				cycle: {
+					yPercent: [-200, 0],
 				},
 				ease: animObject.easeOne
 			})
-			.set(slidesArray[currentSlide].el, {opacity: 0})
-			.set(slidesArray[nextSlide].el, {opacity: 1})
 			.staggerFromTo([slidesArray[nextSlide].elBlockOne, slidesArray[nextSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
-					yPercent: [100, -100]
+					yPercent: [100, -200]
 				}
 			}, {
-				yPercent: 0,
+				cycle: {
+					yPercent: [-100, -100]
+				},
 				ease: animObject.easeOne,
-			})
-			.from(slidesArray[nextSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
-			.from(slidesArray[nextSlide].elSubtitle, animObject.subtitleChangeTime, {
-				opacity: 0,
-				onComplete: function() {
-					checkAnim = false;
-				}
-			})
+			}, 0, 'start')
+			.add(subTlSecond)
 	} else if (!checkAnim) {
 		checkAnim = true;
 		tl
-			// .addLabel('start')
-			.to(slidesArray[currentSlide].elNumber, animObject.subtitleChangeTime, {xPercent: -100})
-			.to(slidesArray[currentSlide].elSubtitle, animObject.subtitleChangeTime, {opacity: 0})
-			.staggerTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
+			.add(subTl)
+			.addLabel('back')
+			.staggerFromTo([slidesArray[currentSlide].elBlockOne, slidesArray[currentSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
-					yPercent: [100, -100]
+					yPercent: [-100, -100]
+				}
+			}, {
+				cycle: {
+					yPercent: [0, -200]
 				},
 				ease: animObject.easeOne
 			})
-			.set(slidesArray[currentSlide].el, {opacity: 0})
-			.set(slidesArray[nextSlide].el, {opacity: 1}, '-=.6')
 			.staggerFromTo([slidesArray[nextSlide].elBlockOne, slidesArray[nextSlide].elBlockTwo], animObject.sliderChangeTime, {
 				cycle: {
-					yPercent: [-100, 100]
+					yPercent: [-200, 100]
 				}
 			}, {
-				yPercent: 0,
+				cycle: {
+					yPercent: [-100, -100],
+				},
 				ease: animObject.easeOne
-			})
-			.fromTo(slidesArray[nextSlide].elNumber, animObject.subtitleChangeTime, {
-				xPercent: -100
-			}, {
-				xPercent: 0
-			})
-			.to(slidesArray[nextSlide].elSubtitle, animObject.subtitleChangeTime, {
-				opacity: 1,
-				onComplete: function() {
-					checkAnim = false;
-				}
-			})
+			}, 0, 'back')
+			.add(subTlSecond)
 	}
 
 }
