@@ -68,8 +68,8 @@
 	will-change: transform;
 	transform: translateZ(0);
 
-	&.v1_mod {
-		z-index: 2;
+	&.v2_mod {
+		overflow: hidden;
 	}
 
 }

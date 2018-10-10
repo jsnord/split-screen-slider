@@ -352,8 +352,8 @@ body {
   height: 100%;
   will-change: transform;
   transform: translateZ(0); }
-  .slider_col_in.v1_mod {
-    z-index: 2; }
+  .slider_col_in.v2_mod {
+    overflow: hidden; }
 
 .slider_descr {
   position: absolute;
