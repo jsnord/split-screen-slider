@@ -27,7 +27,7 @@ function loadFunc() {
 			'elDescr': $('.slider_descr', $this),
 			'elBlockOne': $('.slider_col_in.v1_mod', $this),
 			'elBlockTwo': $('.slider_col_in.v2_mod', $this),
-			'elSubtitle': $('.slide_block_w_subtitle', $this),
+			'elSubtitle': $('.slide_block_subtitle_in', $this),
 			'elNumber': $('.slider_block_w_number', $this),
 			'elImage': $('.slider_w_img', $this)
 		};

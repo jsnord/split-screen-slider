@@ -33,7 +33,6 @@
 	float: none !important;
 
 	// opacity: 0;
-	will-change: transform;
 	background-color: transparent;
 
 	&.slick-active {
@@ -64,9 +63,8 @@
 
 	width: 100%;
 	height: 100%;
-	
-	will-change: transform;
-	transform: translateZ(0);
+
+	@include d3();
 
 	&.v2_mod {
 		overflow: hidden;
@@ -110,19 +108,30 @@
 	margin: auto;
 }
 
-.slide_block_w_subtitle {
-	width: 4em;
-	
+.slide_block_subtitle {
+	position: relative;
+
+	width: (4em/1);
+
+	color: transparent;
+	font-size: 1em;
+	text-transform: uppercase;
+
 	&.offset_mod {
-		margin-bottom: 2em;
+		margin-bottom: (2em/1);
 	}
 
 }
 
-.slide_block_subtitle {
+.slide_block_subtitle_in {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
 	color: $black;
-	font-size: 1em;
-	text-transform: uppercase;
 }
 
 .slide_block_title {
@@ -144,6 +153,8 @@
 
 	margin-top: -6em;
 	margin-left: -5em;
+
+	@include d3();
 }
 
 .slider_block_number {
