@@ -3,7 +3,7 @@
 }
 
 html {
-	font: 400 10px/1.33 'Poppins';
+	font: 400 calc(100vw / 1920 * 10)/1.33 'Poppins';
 }
 
 body {
