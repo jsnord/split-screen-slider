@@ -1,10 +1,14 @@
 var $mainSlider,
 		slidesArray = [],
 		animObject,
+		$btnNext,
+		$btnPrev,
 		checkAnim = false;
 
 $(document).ready(function ($) {
 	$mainSlider = $('.mainSlider');
+	$btnNext = $('.nav_arrows_control.next_mod');
+	$btnPrev = $('.nav_arrows_control.prev_mod');
 	
 	animObject = {
 		'easeOne': Expo.easeOut,
@@ -92,6 +96,22 @@ function sliderInit() {
 			slideAnim(nextSlide, currentSlide);
 		} else {
 			return false;
+		}
+
+	});
+
+	$mainSlider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+
+		if (currentSlide === slidesArray.length - 1) {
+			$btnNext.addClass('hidden_mod');
+		} else {
+			$btnNext.removeClass('hidden_mod');
+		}
+
+		if (currentSlide === 0) {
+			$btnPrev.addClass('hidden_mod');
+		} else {
+			$btnPrev.removeClass('hidden_mod');
 		}
 
 	});

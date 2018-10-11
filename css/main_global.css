@@ -301,7 +301,11 @@ body {
   display: block;
   width: 2em;
   height: 2.4em;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: opacity .3s ease; }
+  .nav_arrows_control.hidden_mod {
+    opacity: 0;
+    pointer-events: none; }
 
 .nav_arrows_icon {
   display: block;

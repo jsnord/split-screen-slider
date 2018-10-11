@@ -214,6 +214,14 @@
 	height: 2.4em;
 
 	cursor: pointer;
+
+	transition: opacity .3s ease;
+
+	&.hidden_mod {
+		opacity: 0;
+		pointer-events: none;
+	}
+
 }
 
 .nav_arrows_icon {
